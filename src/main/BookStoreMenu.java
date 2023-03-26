@@ -1,5 +1,7 @@
 package main;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -47,7 +49,7 @@ public class BookStoreMenu {
                     showBooksByAuthor();
                     break;
                 case 5:
-                    System.out.println("Option " + option + " selected");
+                    showBooksByEditorialName();
                     break;
                 case 6:
                     showBooksByPrice();
@@ -62,7 +64,8 @@ public class BookStoreMenu {
                     System.out.println("Option " + option + " selected");
                     break;
                 case 10:
-
+                    double averagePriceInRon = calculateAveragePrice();
+                    System.out.println(averagePriceInRon);
                     break;
                 case 11:
                     System.out.println("Option " + option + " selected");
@@ -152,8 +155,7 @@ public class BookStoreMenu {
             Book currentBook = books[i];
             if (currentBook.getName().equalsIgnoreCase(bookName)) {
                 System.out.println(i + " - " + currentBook);
-            }
-            else {
+            } else {
                 System.out.println("No available books at the moment");
             }
         }
@@ -167,8 +169,7 @@ public class BookStoreMenu {
             Book currentBook = books[i];
             if (currentBook.getAuthorName().contains(authorName)) {
                 System.out.println(i + " - " + currentBook);
-            }
-            else {
+            } else {
                 System.out.println("No available books at the moment");
             }
         }
@@ -177,20 +178,45 @@ public class BookStoreMenu {
     public void showBooksByPrice() {
         System.out.println("Enter minimum price: ");
         double minPriceInRon = inNumbers.nextDouble();
-        long minPriceInBani = (long)(minPriceInRon * 100);
+        long minPriceInBani = (long) (minPriceInRon * 100);
         System.out.println("Enter maximum price: ");
         double maxPriceinRon = inNumbers.nextDouble();
-        long maxPriceInBani = (long)(maxPriceinRon * 100);
+        long maxPriceInBani = (long) (maxPriceinRon * 100);
         System.out.println("Books available in the price range are: ");
         for (int i = 0; i < books.length; i++) {
             Book currentBook = books[i];
-            if(currentBook.getPrice() >= minPriceInBani && currentBook.getPrice()<= maxPriceInBani ) {
+            if (currentBook.getPrice() >= minPriceInBani && currentBook.getPrice() <= maxPriceInBani) {
                 System.out.println(i + " " + currentBook);
+            } else {
+                System.out.println("No available books at the moment");
+            }
+        }
+    }
+
+    public void showBooksByEditorialName () {
+        System.out.println("Enter the editorial name: ");
+        String editorialName = inText.nextLine();
+        for (int i =0; i < books.length; i++){
+            Book currentBook = books[i];
+            if(currentBook.getEditorialName().equalsIgnoreCase(editorialName)){
+                System.out.println(i + " - " + currentBook);
             }
             else {
                 System.out.println("No available books at the moment");
             }
         }
+    }
+
+    public double calculateAveragePrice(){
+       long averageInBani;
+       long sum = 0;
+        for (int i = 0; i < books.length; i++) {
+            Book currentBook = books[i];
+            sum += currentBook.getPrice();
+        }
+        averageInBani = sum/ books.length;
+        double averageInRon = averageInBani/100;
+        return averageInRon;
     }
 
 
