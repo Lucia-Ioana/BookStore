@@ -58,14 +58,15 @@ public class BookStoreMenu {
                     System.out.println("Option " + option + " selected");
                     break;
                 case 8:
-                    System.out.println("Option " + option + " selected");
+                    showBooksByGenre();
                     break;
                 case 9:
-                    System.out.println("Option " + option + " selected");
+                    double totalPrice = calculateTotalPrice();
+                    System.out.println(totalPrice);
                     break;
                 case 10:
                     double averagePriceInRon = calculateAveragePrice();
-                    System.out.println(averagePriceInRon);
+                    System.out.println("Average price is : " + averagePriceInRon + " RON");
                     break;
                 case 11:
                     System.out.println("Option " + option + " selected");
@@ -74,7 +75,7 @@ public class BookStoreMenu {
                     System.out.println("Option " + option + " selected");
                     break;
                 case 13:
-//                    largestNumberOfPages();
+                    showBookWithLargestNrOfPages();
                     break;
                 case 14:
                     System.out.println("Option " + option + " selected");
@@ -126,7 +127,7 @@ public class BookStoreMenu {
         System.out.println("5.Show books by editorialName");
         System.out.println("6.Show books by price");
         System.out.println("7.Show books that have more then nrOfPages");
-        System.out.println("8.Show books by type");
+        System.out.println("8.Show books by genre");
         System.out.println("9.Calculate and show total price for all books in library");
         System.out.println("10.Calculate and show the average price of all books");
         System.out.println("11.Show the book with the lowest price");
@@ -155,8 +156,6 @@ public class BookStoreMenu {
             Book currentBook = books[i];
             if (currentBook.getName().equalsIgnoreCase(bookName)) {
                 System.out.println(i + " - " + currentBook);
-            } else {
-                System.out.println("No available books at the moment");
             }
         }
     }
@@ -169,8 +168,6 @@ public class BookStoreMenu {
             Book currentBook = books[i];
             if (currentBook.getAuthorName().contains(authorName)) {
                 System.out.println(i + " - " + currentBook);
-            } else {
-                System.out.println("No available books at the moment");
             }
         }
     }
@@ -187,8 +184,6 @@ public class BookStoreMenu {
             Book currentBook = books[i];
             if (currentBook.getPrice() >= minPriceInBani && currentBook.getPrice() <= maxPriceInBani) {
                 System.out.println(i + " " + currentBook);
-            } else {
-                System.out.println("No available books at the moment");
             }
         }
     }
@@ -201,10 +196,19 @@ public class BookStoreMenu {
             if(currentBook.getEditorialName().equalsIgnoreCase(editorialName)){
                 System.out.println(i + " - " + currentBook);
             }
-            else {
-                System.out.println("No available books at the moment");
-            }
+
         }
+    }
+
+    public double calculateTotalPrice(){
+        long priceInBani;
+        long sum = 0;
+        for (int i = 0; i < books.length; i++) {
+            Book currentBook = books[i];
+            sum += currentBook.getPrice();
+        }
+        priceInBani = sum;
+        return (double) (priceInBani/100);
     }
 
     public double calculateAveragePrice(){
@@ -215,9 +219,34 @@ public class BookStoreMenu {
             sum += currentBook.getPrice();
         }
         averageInBani = sum/ books.length;
-        double averageInRon = averageInBani/100;
-        return averageInRon;
+        return (double) (averageInBani/100);
     }
+
+    public void showBooksByGenre () {
+        System.out.println("Enter the genre : ");
+        String genre = inText.nextLine();
+        for (int i =0; i < books.length; i++){
+            Book currentBook = books[i];
+            if(currentBook.getGenre().equalsIgnoreCase(genre)){
+                System.out.println(i + " - " + currentBook);
+            }
+        }
+    }
+
+    public void showBookWithLargestNrOfPages(){
+        int maxNrOfPages = books[0].getNrOfPages();
+        Book largestBook = null;
+        for (int i = 0; i < books.length; i++) {
+            if(books[i].getNrOfPages() > maxNrOfPages){
+                maxNrOfPages = books[i].getNrOfPages();
+                largestBook = books[i];
+            }
+        }
+        System.out.println("The largest book is " + largestBook);
+    }
+
+
+
 
 
     public Book[] getBooks() {
