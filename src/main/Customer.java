@@ -10,6 +10,26 @@ public class Customer {
         this.name = name;
     }
 
+    public void addBookToCartOfBooks(Book currentBook) {
+        int empty = firstemptyIndex();
+        if (empty != -1) {
+            cartOfBooks[empty] = currentBook;
+        }
+    }
+
+    private int firstemptyIndex() {
+        int firstEmptyIndex = -1;
+        for (int i = 0; i < cartOfBooks.length; i++) {
+            if (cartOfBooks[i] == null) {
+                firstEmptyIndex = i;
+                break;
+            }
+        }
+
+        return firstEmptyIndex;
+
+    }
+
 
     public String getName() {
         return name;

@@ -40,7 +40,7 @@ public class BookStoreMenu {
                     showBooks();
                     break;
                 case 2:
-//                    buyBook();
+                    buyBook();
                     break;
                 case 3:
                     showBookByName();
@@ -145,6 +145,24 @@ public class BookStoreMenu {
             Book currentBook = books[i];
             System.out.println(i + " " + currentBook);
         }
+    }
+
+    public void buyBook(){
+        showBooks();
+        System.out.print("Choose a book :" );
+        int selectedBookNr = inNumbers.nextInt();
+        Book selectedBook = books[selectedBookNr];
+        System.out.println("Selected Book : " + selectedBook.getName());
+        System.out.println("You have to pay:" + (selectedBook.getPrice()/100.0) + "RON");
+        // TODO: 3/26/2023 payment
+        currentCustomer.addBookToCartOfBooks(selectedBook);
+
+
+
+
+
+
+
     }
 
 
