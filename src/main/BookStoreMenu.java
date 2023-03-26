@@ -78,7 +78,7 @@ public class BookStoreMenu {
                     showBookWithLargestNrOfPages();
                     break;
                 case 14:
-                    System.out.println("Option " + option + " selected");
+                   showBookWithTheSmallestNrOfPages();
                     break;
                 case 15:
                     System.out.println("Option " + option + " selected");
@@ -244,6 +244,21 @@ public class BookStoreMenu {
         }
         System.out.println("The largest book is " + largestBook);
     }
+
+    public void showBookWithTheSmallestNrOfPages(){
+        int minNrOfPages = books[0].getNrOfPages();
+        Book smallestBook = null;
+        for (int i = 0; i < books.length; i++) {
+            if(books[i].getNrOfPages() < minNrOfPages){
+                minNrOfPages = smallestBook.getNrOfPages();
+            }
+
+        }
+        System.out.println("The smallest book is : " + smallestBook);
+    }
+
+
+
 
 
 
