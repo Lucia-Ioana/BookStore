@@ -83,7 +83,7 @@ public class BookStoreMenu {
                 case 15:
                     System.out.println("Option " + option + " selected");
                 case 16:
-                    System.out.println("");
+                    currentCustomer.showCartOfBooksBought();
                     break;
                 case 17:
                     System.out.println("EXIT");
@@ -156,12 +156,6 @@ public class BookStoreMenu {
         System.out.println("You have to pay:" + (selectedBook.getPrice()/100.0) + "RON");
         // TODO: 3/26/2023 payment
         currentCustomer.addBookToCartOfBooks(selectedBook);
-
-
-
-
-
-
 
     }
 
@@ -309,6 +303,8 @@ public class BookStoreMenu {
         }
         System.out.println("The book with the highest price is: " + highestPrice);
     }
+
+
 
 
     public Book[] getBooks() {
