@@ -55,7 +55,7 @@ public class BookStoreMenu {
                     showBooksByPrice();
                     break;
                 case 7:
-                    System.out.println("Option " + option + " selected");
+                    showBookWithMoreNrOfPagesThan();
                     break;
                 case 8:
                     showBooksByGenre();
@@ -69,16 +69,16 @@ public class BookStoreMenu {
                     System.out.println("Average price is : " + averagePriceInRon + " RON");
                     break;
                 case 11:
-                    System.out.println("Option " + option + " selected");
+                    showBookWithLowestPrice();
                     break;
                 case 12:
-                    System.out.println("Option " + option + " selected");
+                    showBookWithHighestPrice();
                     break;
                 case 13:
                     showBookWithLargestNrOfPages();
                     break;
                 case 14:
-                   showBookWithTheSmallestNrOfPages();
+                    showBookWithTheSmallestNrOfPages();
                     break;
                 case 15:
                     System.out.println("Option " + option + " selected");
@@ -188,19 +188,19 @@ public class BookStoreMenu {
         }
     }
 
-    public void showBooksByEditorialName () {
+    public void showBooksByEditorialName() {
         System.out.println("Enter the editorial name: ");
         String editorialName = inText.nextLine();
-        for (int i =0; i < books.length; i++){
+        for (int i = 0; i < books.length; i++) {
             Book currentBook = books[i];
-            if(currentBook.getEditorialName().equalsIgnoreCase(editorialName)){
+            if (currentBook.getEditorialName().equalsIgnoreCase(editorialName)) {
                 System.out.println(i + " - " + currentBook);
             }
 
         }
     }
 
-    public double calculateTotalPrice(){
+    public double calculateTotalPrice() {
         long priceInBani;
         long sum = 0;
         for (int i = 0; i < books.length; i++) {
@@ -208,36 +208,36 @@ public class BookStoreMenu {
             sum += currentBook.getPrice();
         }
         priceInBani = sum;
-        return (double) (priceInBani/100);
+        return (double) (priceInBani / 100);
     }
 
-    public double calculateAveragePrice(){
-       long averageInBani;
-       long sum = 0;
+    public double calculateAveragePrice() {
+        long averageInBani;
+        long sum = 0;
         for (int i = 0; i < books.length; i++) {
             Book currentBook = books[i];
             sum += currentBook.getPrice();
         }
-        averageInBani = sum/ books.length;
-        return (double) (averageInBani/100);
+        averageInBani = sum / books.length;
+        return (double) (averageInBani / 100);
     }
 
-    public void showBooksByGenre () {
+    public void showBooksByGenre() {
         System.out.println("Enter the genre : ");
         String genre = inText.nextLine();
-        for (int i =0; i < books.length; i++){
+        for (int i = 0; i < books.length; i++) {
             Book currentBook = books[i];
-            if(currentBook.getGenre().equalsIgnoreCase(genre)){
+            if (currentBook.getGenre().equalsIgnoreCase(genre)) {
                 System.out.println(i + " - " + currentBook);
             }
         }
     }
 
-    public void showBookWithLargestNrOfPages(){
+    public void showBookWithLargestNrOfPages() {
         int maxNrOfPages = books[0].getNrOfPages();
         Book largestBook = null;
         for (int i = 0; i < books.length; i++) {
-            if(books[i].getNrOfPages() > maxNrOfPages){
+            if (books[i].getNrOfPages() > maxNrOfPages) {
                 maxNrOfPages = books[i].getNrOfPages();
                 largestBook = books[i];
             }
@@ -245,23 +245,52 @@ public class BookStoreMenu {
         System.out.println("The largest book is " + largestBook);
     }
 
-    public void showBookWithTheSmallestNrOfPages(){
+    public void showBookWithTheSmallestNrOfPages() {
         int minNrOfPages = books[0].getNrOfPages();
         Book smallestBook = null;
         for (int i = 0; i < books.length; i++) {
-            if(books[i].getNrOfPages() < minNrOfPages){
-                minNrOfPages = smallestBook.getNrOfPages();
+            if (books[i].getNrOfPages() < minNrOfPages) {
+                minNrOfPages = books[i].getNrOfPages();
+                smallestBook = books[i];
             }
-
         }
         System.out.println("The smallest book is : " + smallestBook);
     }
 
+    public void showBookWithMoreNrOfPagesThan() {
+        System.out.println("Enter the number of pages: ");
+        int nrOfPages = inNumbers.nextInt();
+        for (int i = 0; i < books.length; i++) {
+            if (books[i].getNrOfPages() > nrOfPages) {
+                Book currentBook = books[i];
+                System.out.println(currentBook);
+            }
+        }
+    }
 
+    public void showBookWithLowestPrice() {
+        long minPrice = books[0].getPrice();
+        Book lowestPrice = books[0];
+        for (int i = 1; i < books.length; i++) {
+            if (books[i].getPrice() < minPrice) {
+                minPrice = lowestPrice.getPrice();
+                lowestPrice = books[i];
+            }
+        }
+        System.out.println("The book with the lowest price is: " + lowestPrice);
+    }
 
-
-
-
+    public void showBookWithHighestPrice() {
+        long maxPrice = books[0].getNrOfPages();
+        Book highestPrice = books[0];
+        for (Book book : books) {
+            if (book.getPrice() > maxPrice) {
+                maxPrice = highestPrice.getPrice();
+                highestPrice = book;
+            }
+        }
+        System.out.println("The book with the highest price is: " + highestPrice);
+    }
 
 
     public Book[] getBooks() {
